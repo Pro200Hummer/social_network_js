@@ -1,0 +1,7 @@
+/*Стилизация оснновного контента*/
+.profile {
+	background-color: rgb(96, 163, 226);
+}
+.image {
+	margin: 0 auto;
+}

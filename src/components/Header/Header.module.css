@@ -1,0 +1,8 @@
+/*Стилизация логотипа*/
+.header {
+	background-color: rgb(15, 179, 77);
+}
+.logo {
+	max-width: 60px;
+	margin-left: 40px;
+}

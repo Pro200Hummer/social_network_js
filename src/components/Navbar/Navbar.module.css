@@ -1,0 +1,22 @@
+/*Стилизация ссылок навигации*/
+.navbar {
+	background-color: rgb(38, 180, 20);
+}
+.link {
+	display: block;
+	border: 1px solid rgb(88, 73, 69);
+	padding: 5px 30px 5px 5px;
+	margin: 5px;
+	text-decoration: none;
+	background-color: rgba(226, 220, 211, 0.746);
+	color: rgb(238, 234, 9);
+}
+.link:hover {
+	border: 1px solid rgba(120, 189, 195, 0.733);
+	color: rgb(238, 234, 9);
+}
+.link:active {
+	border: 1px solid rgba(120, 189, 195, 0.733);
+	background-color: rgba(235, 219, 196, 0.746);
+	color: rgb(238, 234, 9);
+}
