@@ -4,7 +4,7 @@ import HeaderStyle from "./Header.module.css";
 function Header() {
 	return (
 		<header className={` ${MainStyle.header} ${HeaderStyle.header}`}>
-			<img src="https://www.vikiweb.ru/images/sozdanie-logotipa.png" className={HeaderStyle.logo} />
+			<img src="https://www.vikiweb.ru/images/sozdanie-logotipa.png" className={HeaderStyle.logo}  alt="#"/>
 		</header >
 	);
 }
