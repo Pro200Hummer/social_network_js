@@ -4,11 +4,10 @@ import axios from "axios";
 import avatar from "../../resources/images/user-avatar.png"
 
 class Users extends React.Component {
-    constructor(props){
-        super(props);
+    componentDidMount() {
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(r => {
             console.log(r)
-            props.setUsers(r.data.items.map(i => {
+            this.props.setUsers(r.data.items.map(i => {
                 if(i.photos.small === null){
                     return {...i, photos:{...i.photos, small: avatar}}
                 }
