@@ -3,3 +3,10 @@
     width:200px;
     height: 200px;
 }
+.selected{
+    font-weight: bold;
+}
+.page-number{
+    margin: 0 20px 0 20px;
+    cursor: pointer;
+}

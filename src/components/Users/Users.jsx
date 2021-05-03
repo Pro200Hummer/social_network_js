@@ -5,18 +5,48 @@ import avatar from "../../resources/images/user-avatar.png"
 
 class Users extends React.Component {
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(r => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(r => {
             console.log(r)
             this.props.setUsers(r.data.items.map(i => {
-                if(i.photos.small === null){
-                    return {...i, photos:{...i.photos, small: avatar}}
+                if (i.photos.small === null) {
+                    return {...i, photos: {...i.photos, small: avatar}}
+                }
+                return i
+            }))
+            this.props.setUsersCount(r.data.totalCount)
+        })
+    }
+
+    pageNumberChanger = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(r => {
+            console.log(r)
+            this.props.setUsers(r.data.items.map(i => {
+                if (i.photos.small === null) {
+                    return {...i, photos: {...i.photos, small: avatar}}
                 }
                 return i
             }))
         })
     }
-    render(){
+
+    render() {
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages = [];
+        for (let i = 1; i <= pageCount; i++) {
+            pages = [...pages, i]
+        }
+
         return <div>
+            {
+                pages.map((p, i) => {
+                    return <span
+                        key={i}
+                        className={this.props.currentPage === p ? `${us.selected} ${us.pageNumber}` : `${us.pageNumber}`}
+                        onClick={(e) => {this.pageNumberChanger(p)}}
+                    >{p}|</span>
+                })
+            }
             {
                 this.props.users.map(u => {
                         const followClickHandler = () => {
@@ -88,7 +118,6 @@ class Users extends React.Component {
         }
     </div>
 }*/
-
 
 
 export default Users
