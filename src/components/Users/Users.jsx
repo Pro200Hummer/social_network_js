@@ -1,6 +1,7 @@
 import React from "react";
 import us from "./Users.module.css";
 import Preloader from "../Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 
 const Users = (props) => {
@@ -49,7 +50,12 @@ const Users = (props) => {
                                 <button onClick={followClickHandler}>Follow</button> :
                                 <button onClick={unFollowClickHandler}>Unfollow</button>
                             return <div key={u.id}>
-                                <div><img src={u.photos.small} className={us.avatar} alt="#"/></div>
+                                <div>
+                                    <NavLink to={"/profile/" + u.id}>
+                                        <img src={u.photos.small} className={us.avatar} alt="#"/>
+                                    </NavLink>
+
+                                </div>
                                 <div>
                                     {button}
                                 </div>

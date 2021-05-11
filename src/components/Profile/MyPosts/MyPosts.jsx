@@ -1,5 +1,4 @@
 import React from 'react';
-import ps from './MyPosts.module.css'
 import Post from './Posts/Post';
 
 
@@ -14,8 +13,8 @@ function MyPosts(props) {
     }
 
     return (
-        <div className={ps.action}>
-            <div className={ps.title}>My posts</div>
+        <>
+            <div >My posts</div>
             <div>
                 <textarea
                     onChange={updateNewPostText}
@@ -23,7 +22,7 @@ function MyPosts(props) {
                 <button onClick={addPost}>Add Post</button>
             </div>
             {postsElement}
-        </div>
+        </>
     );
 }
 

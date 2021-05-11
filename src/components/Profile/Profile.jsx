@@ -6,13 +6,10 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 
-function Profile() {
+const Profile = (props) => {
     return (
         <div className={ProfileStyles.profile}>
-            <div className={ProfileStyles.image}>
-                <img src="https://img1.liveinternet.ru/images/attach/c/8/100/815/100815377________20120830_1918196980.jpg" alt="#"/>
-            </div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer />
         </div>
     );
