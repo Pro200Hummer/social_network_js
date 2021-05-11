@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import {
-    followAC, setCurrentPageAC,
-    setUsersAC, setUsersCountAC, toggleLoadingAC,
-    unfollowAC
+    follow, setCurrentPage,
+    setUsers, setUsersCount, toggleLoading,
+    unfollow
 } from "../../Redux/users-reducer";
 import React from "react";
 import axios from "axios";
@@ -68,7 +68,19 @@ let mapStateToProps = (state) => {
         isLoading: state.usersPage.isLoading
     }
 }
-let mapDispatchToProps = (dispatch) => {
+
+const actionCreators =  {
+        follow,
+        unfollow,
+        setUsers,
+        setUsersCount,
+        setCurrentPage,
+        toggleLoading,
+}
+
+export default connect(mapStateToProps, actionCreators)(UsersAPIContainer)
+
+/*let mapDispatchToProps = (dispatch) => {
     return {
         follow: (userID) => {
             dispatch(followAC(userID))
@@ -90,7 +102,4 @@ let mapDispatchToProps = (dispatch) => {
         }
 
     }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
-
-
+}*/
