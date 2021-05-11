@@ -1,5 +1,6 @@
 import React from "react";
 import us from "./Users.module.css";
+import Preloader from "../Preloader/Preloader";
 
 
 const Users = (props) => {
@@ -9,6 +10,7 @@ const Users = (props) => {
         totalUsersCount,
         pageSize,
         currentPage,
+        isLoading,
         followClick,
         unfollowClick,
         pageNumberChanger,
@@ -34,29 +36,31 @@ const Users = (props) => {
                 })
             }
             {
-                users.map(u => {
-                        const followClickHandler = () => {
-                            followClick(u.id)
-                        }
-                        const unFollowClickHandler = () => {
-                            unfollowClick(u.id)
-                        }
+                isLoading ?
+                    <Preloader/> :
+                    users.map(u => {
+                            const followClickHandler = () => {
+                                followClick(u.id)
+                            }
+                            const unFollowClickHandler = () => {
+                                unfollowClick(u.id)
+                            }
 
-                        const button = u.followed ?
-                            <button onClick={followClickHandler}>Follow</button> :
-                            <button onClick={unFollowClickHandler}>Unfollow</button>
-                        return <div key={u.id}>
-                            <div><img src={u.photos.small} className={us.avatar} alt="#"/></div>
-                            <div>
-                                {button}
+                            const button = u.followed ?
+                                <button onClick={followClickHandler}>Follow</button> :
+                                <button onClick={unFollowClickHandler}>Unfollow</button>
+                            return <div key={u.id}>
+                                <div><img src={u.photos.small} className={us.avatar} alt="#"/></div>
+                                <div>
+                                    {button}
+                                </div>
+                                <div>
+                                    <div>{u.name}</div>
+                                    <div>{u.status}</div>
+                                </div>
                             </div>
-                            <div>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </div>
-                        </div>
-                    }
-                )
+                        }
+                    )
             }
         </div>
     )
