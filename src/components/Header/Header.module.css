@@ -1,7 +1,20 @@
 /*Стилизация логотипа*/
-.header {
+.cont {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
 	background-color: rgb(15, 179, 77);
 }
+.box {
+	margin: 5px;
+	padding: 5px;
+	flex: 0 1 auto;
+	align-self: center;
+}
+
+
+
 .logo {
 	max-width: 60px;
 	margin-left: 40px;

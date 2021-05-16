@@ -10,7 +10,7 @@ import avatar from "../../resources/images/user-avatar.png";
 import Users from "./Users";
 
 
-class UsersAPIContainer extends React.Component {
+class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.toggleLoading(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
@@ -78,7 +78,7 @@ const actionCreators = {
     toggleLoading,
 }
 
-export default connect(mapStateToProps, actionCreators)(UsersAPIContainer)
+export default connect(mapStateToProps, actionCreators)(UsersContainer)
 
 /*let mapDispatchToProps = (dispatch) => {
     return {

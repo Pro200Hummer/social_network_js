@@ -1,6 +1,5 @@
 import React from 'react';
 import MainStyle from "./App.module.css";
-import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
@@ -9,6 +8,7 @@ import {BrowserRouter, Route} from 'react-router-dom/cjs/react-router-dom.min';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 
@@ -16,7 +16,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className={MainStyle.wrapper}>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className={MainStyle.content}>
                     <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
