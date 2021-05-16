@@ -52,7 +52,10 @@ const Users = (props) => {
                             return <div key={u.id}>
                                 <div>
                                     <NavLink to={"/profile/" + u.id}>
-                                        <img src={u.photos.small} className={us.avatar} alt="#"/>
+                                        <img
+                                            src={u.photos.small}
+                                            className={us.avatar} alt="#"
+                                        />
                                     </NavLink>
 
                                 </div>

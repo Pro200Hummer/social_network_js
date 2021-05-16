@@ -52,7 +52,7 @@ class UsersAPIContainer extends React.Component {
                     followClick={this.props.follow}
                     unfollowClick={this.props.unfollow}
                     pageNumberChanger={this.pageNumberChanger}
-                    isLoading={this.props.isLoading }
+                    isLoading={this.props.isLoading}
                 />
             </>
         )
@@ -69,13 +69,13 @@ let mapStateToProps = (state) => {
     }
 }
 
-const actionCreators =  {
-        follow,
-        unfollow,
-        setUsers,
-        setUsersCount,
-        setCurrentPage,
-        toggleLoading,
+const actionCreators = {
+    follow,
+    unfollow,
+    setUsers,
+    setUsersCount,
+    setCurrentPage,
+    toggleLoading,
 }
 
 export default connect(mapStateToProps, actionCreators)(UsersAPIContainer)
