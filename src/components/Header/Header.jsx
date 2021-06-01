@@ -9,6 +9,7 @@ function Header(props) {
 					<img src="https://www.vikiweb.ru/images/sozdanie-logotipa.png" className={hs.logo}/>
 				</div>
 				<div className={hs.box}>
+					<div>Login</div>
 					<div>{props.userData.id}</div>
 					<div>{props.userData.login}</div>
 					<div>{props.userData.email}</div>

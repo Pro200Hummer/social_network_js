@@ -3,17 +3,18 @@ import {
     follow, setCurrentPage,
     setUsers, setUsersCount, toggleLoading,
     unfollow
-} from "../../Redux/users-reducer";
+} from "../../redux/users-reducer";
 import React from "react";
 import axios from "axios";
 import avatar from "../../resources/images/user-avatar.png";
 import Users from "./Users";
+import {usersAPI} from "../../api/users-api";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.toggleLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(r => {
                 this.props.toggleLoading(false);
                 this.props.setUsers(r.data.items.map(i => {
@@ -29,7 +30,7 @@ class UsersContainer extends React.Component {
     pageNumberChanger = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        usersAPI.pageNumberChanger(pageNumber, this.props.pageSize)
             .then(r => {
                 this.props.toggleLoading(false);
                 this.props.setUsers(r.data.items.map(i => {
@@ -41,6 +42,31 @@ class UsersContainer extends React.Component {
             })
     }
 
+    followingChanger = (userID, trigger) => {
+        if(trigger === "follow"){
+            usersAPI.followUser(userID)
+                .then(res => {
+                    if(res.data.resultCode === 0){
+                        this.props.follow(userID)
+                    }
+                    if(res.data.resultCode === 1){
+                        alert(res.data.messages[0])
+                    }
+                })
+        }
+        if(trigger === "unfollow"){
+            usersAPI.unfollowUser(userID)
+                .then(res => {
+                    if(res.data.resultCode === 0){
+                        this.props.unfollow(userID)
+                    }
+                    if(res.data.resultCode === 1){
+                        alert(res.data.messages[0])
+                    }
+                })
+        }
+    }
+
     render() {
         return (
             <>
@@ -49,8 +75,7 @@ class UsersContainer extends React.Component {
                     totalUsersCount={this.props.totalUsersCount}
                     pageSize={this.props.pageSize}
                     currentPage={this.props.currentPage}
-                    followClick={this.props.follow}
-                    unfollowClick={this.props.unfollow}
+                    followingChanger={this.followingChanger}
                     pageNumberChanger={this.pageNumberChanger}
                     isLoading={this.props.isLoading}
                 />

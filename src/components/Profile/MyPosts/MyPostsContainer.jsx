@@ -1,4 +1,4 @@
-import {newPostCreator, updateNewPostTextCreator} from "../../../Redux/profile-reducer";
+import {newPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MouseEvent} from "react";
 import us from "./Users.module.css";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
@@ -12,8 +12,7 @@ const Users = (props) => {
         pageSize,
         currentPage,
         isLoading,
-        followClick,
-        unfollowClick,
+        followingChanger,
         pageNumberChanger,
     } = props
 
@@ -39,16 +38,20 @@ const Users = (props) => {
                 isLoading ?
                     <Preloader/> :
                     users.map(u => {
-                            const followClickHandler = () => {
-                                followClick(u.id)
+                            const followClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+                                followingChanger(u.id, e.currentTarget.dataset.following)
                             }
-                            const unFollowClickHandler = () => {
-                                unfollowClick(u.id)
+                            const unFollowClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+                                followingChanger(u.id, e.currentTarget.dataset.following)
                             }
 
                             const button = u.followed ?
-                                <button onClick={followClickHandler}>Follow</button> :
-                                <button onClick={unFollowClickHandler}>Unfollow</button>
+                                <button onClick={unFollowClickHandler} data-following="unfollow">Unfollow</button> :
+                                <button onClick={followClickHandler} data-following="follow">Follow</button>
+
+                            const following = u.followed ?
+                                <div>You are subscribed</div> :
+                                <div>You are not subscribed</div>
                             return <div key={u.id}>
                                 <div>
                                     <NavLink to={"/profile/" + u.id}>
@@ -60,6 +63,7 @@ const Users = (props) => {
 
                                 </div>
                                 <div>
+                                    {following}
                                     {button}
                                 </div>
                                 <div>

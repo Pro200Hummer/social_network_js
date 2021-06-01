@@ -17,10 +17,10 @@
 }
 .navbar {
 	grid-area: navbar;
-	margin-top: 20px;
+	margin-top: 30px;
 }
 .content {
 	grid-area: content;
-	margin-top: 20px;
+	margin-top: 30px;
 	max-width: 1200px;
 }
