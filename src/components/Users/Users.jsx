@@ -28,7 +28,7 @@ const Users = (props) => {
                     return <span
                         key={i}
                         className={currentPage === p ? `${us.selected} ${us.pageNumber}` : `${us.pageNumber}`}
-                        onClick={(e) => {
+                        onClick={() => {
                             pageNumberChanger(p)
                         }}
                     >{p}|</span>

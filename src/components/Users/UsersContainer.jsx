@@ -5,7 +5,6 @@ import {
     unfollow
 } from "../../redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import avatar from "../../resources/images/user-avatar.png";
 import Users from "./Users";
 import {usersAPI} from "../../api/users-api";
@@ -15,15 +14,15 @@ class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.toggleLoading(true);
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(r => {
+            .then(data => {
                 this.props.toggleLoading(false);
-                this.props.setUsers(r.data.items.map(i => {
+                this.props.setUsers(data.items.map(i => {
                     if (i.photos.small === null) {
                         return {...i, photos: {...i.photos, small: avatar}}
                     }
                     return i
                 }));
-                this.props.setUsersCount(r.data.totalCount);
+                this.props.setUsersCount(data.totalCount);
             })
     }
 
@@ -31,9 +30,9 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleLoading(true);
         usersAPI.pageNumberChanger(pageNumber, this.props.pageSize)
-            .then(r => {
+            .then(data => {
                 this.props.toggleLoading(false);
-                this.props.setUsers(r.data.items.map(i => {
+                this.props.setUsers(data.items.map(i => {
                     if (i.photos.small === null) {
                         return {...i, photos: {...i.photos, small: avatar}}
                     }
@@ -45,23 +44,23 @@ class UsersContainer extends React.Component {
     followingChanger = (userID, trigger) => {
         if(trigger === "follow"){
             usersAPI.followUser(userID)
-                .then(res => {
-                    if(res.data.resultCode === 0){
+                .then(data => {
+                    if(data.resultCode === 0){
                         this.props.follow(userID)
                     }
-                    if(res.data.resultCode === 1){
-                        alert(res.data.messages[0])
+                    if(data.resultCode === 1){
+                        alert(data.messages[0])
                     }
                 })
         }
         if(trigger === "unfollow"){
             usersAPI.unfollowUser(userID)
-                .then(res => {
-                    if(res.data.resultCode === 0){
+                .then(data => {
+                    if(data.resultCode === 0){
                         this.props.unfollow(userID)
                     }
-                    if(res.data.resultCode === 1){
-                        alert(res.data.messages[0])
+                    if(data.resultCode === 1){
+                        alert(data.messages[0])
                     }
                 })
         }
