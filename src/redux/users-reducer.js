@@ -6,6 +6,7 @@ const SET_USERS = "SET_USERS"
 const SET_USER_COUNT = "SET_USER_COUNT"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const TOGGLE_LOADING = "TOGGLE_LOADING"
+const TOGGLE_FOLLOWING = "TOGGLE_FOLLOWING"
 
 
 let initialState = {
@@ -14,6 +15,7 @@ let initialState = {
     pageSize: 100,
     currentPage: 1,
     isLoading: false,
+    followingInProgress: [],
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -46,6 +48,13 @@ export const usersReducer = (state = initialState, action) => {
             return {...state, currentPage: action.currentPage}
         case TOGGLE_LOADING:
             return {...state, isLoading: action.isLoading}
+        case TOGGLE_FOLLOWING:
+            return {
+                ...state,
+                followingInProgress: action.isFollowing ?
+                    [...state.followingInProgress, action.userID] :
+                    state.followingInProgress.filter(id => id !== action.userID)
+            }
         default:
             return state
     }
@@ -58,6 +67,7 @@ export const setUsers = (users) => ({type: SET_USERS, users});
 export const setUsersCount = (totalUsersCount) => ({type: SET_USER_COUNT, totalUsersCount});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const toggleLoading = (isLoading) => ({type: TOGGLE_LOADING, isLoading});
+export const toggleFollowing = (isFollowing, userID) => ({type: TOGGLE_FOLLOWING, isFollowing, userID});
 
 /* Thunk creators for users-reducer */
 export const getUsersTC = (currentPage, pageSize) => (dispatch) => {
@@ -81,6 +91,7 @@ export const changePageNumberTC = (pageNumber, pageSize) => (dispatch) => {
 }
 
 export const followingTC = (userID) => (dispatch) => {
+    dispatch(toggleFollowing(true, userID))
     usersApi.followUser(userID)
         .then(data => {
             if (data.resultCode === 0) {
@@ -89,10 +100,12 @@ export const followingTC = (userID) => (dispatch) => {
             if (data.resultCode === 1) {
                 alert(data.messages[0])
             }
+            dispatch(toggleFollowing(false, userID))
         })
 }
 
 export const unfollowingTC = (userID) => (dispatch) => {
+    dispatch(toggleFollowing(true, userID))
     usersApi.unfollowUser(userID)
         .then(data => {
             if (data.resultCode === 0) {
@@ -101,6 +114,7 @@ export const unfollowingTC = (userID) => (dispatch) => {
             if (data.resultCode === 1) {
                 alert(data.messages[0])
             }
+            dispatch(toggleFollowing(false, userID))
         })
 }
 

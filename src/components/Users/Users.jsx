@@ -13,6 +13,7 @@ const Users = (props) => {
         pageSize,
         currentPage,
         isLoading,
+        followingInProgress,
         followingChanger,
         pageNumberChanger,
     } = props
@@ -47,8 +48,16 @@ const Users = (props) => {
                             }
 
                             const button = u.followed ?
-                                <button onClick={unFollowClickHandler} data-following="unfollow">Unfollow</button> :
-                                <button onClick={followClickHandler} data-following="follow">Follow</button>
+                                <button
+                                    onClick={unFollowClickHandler}
+                                    data-following="unfollow"
+                                    disabled={followingInProgress.some(id => id === u.id)}
+                                >Unfollow</button> :
+                                <button
+                                    onClick={followClickHandler}
+                                    data-following="follow"
+                                    disabled={followingInProgress.some(id => id === u.id)}
+                                >Follow</button>
 
                             const following = u.followed ?
                                 <div>You are subscribed</div> :
