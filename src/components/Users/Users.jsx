@@ -1,5 +1,6 @@
 import React, {MouseEvent} from "react";
 import us from "./Users.module.css";
+import avatar from "../../resources/images/user-avatar.png";
 import Preloader from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 
@@ -52,11 +53,12 @@ const Users = (props) => {
                             const following = u.followed ?
                                 <div>You are subscribed</div> :
                                 <div>You are not subscribed</div>
+
                             return <div key={u.id}>
                                 <div>
                                     <NavLink to={"/profile/" + u.id}>
                                         <img
-                                            src={u.photos.small}
+                                            src={u.photos.small ? u.photos.small : avatar}
                                             className={us.avatar} alt="#"
                                         />
                                     </NavLink>

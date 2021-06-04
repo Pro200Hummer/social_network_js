@@ -1,9 +1,8 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profile-reducer";
+import {getUserInfoTC, setUserProfile} from "../../redux/profile-reducer";
 import {withRouter} from 'react-router-dom';
-import {profileAPI} from "../../api/social-network-api";
 
 
 
@@ -11,10 +10,7 @@ class ProfileAPIContainer extends React.Component {
     componentDidMount() {
         let userID = this.props.match.params.userID;
         if (!userID) userID = 1;
-        profileAPI.getUser(userID)
-            .then(res => {
-                this.props.setUserProfile(res.data)
-            })
+        this.props.getUserInfoTC(userID)
     }
 
     render() {
@@ -34,7 +30,7 @@ let mapStateToProps = (state) => {
 }
 
 const actionCreators = {
-    setUserProfile
+    getUserInfoTC
 }
 
 export default connect(mapStateToProps, actionCreators)(withRouter(ProfileAPIContainer));

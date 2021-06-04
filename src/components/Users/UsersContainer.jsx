@@ -1,68 +1,26 @@
 import {connect} from "react-redux";
 import {
-    follow, setCurrentPage,
-    setUsers, setUsersCount, toggleLoading,
-    unfollow
+    changePageNumberTC, followingTC, getUsersTC, unfollowingTC
 } from "../../redux/users-reducer";
 import React from "react";
-import avatar from "../../resources/images/user-avatar.png";
 import Users from "./Users";
-import {usersApi} from "../../api/social-network-api";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.toggleLoading(true);
-        usersApi.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleLoading(false);
-                this.props.setUsers(data.items.map(i => {
-                    if (i.photos.small === null) {
-                        return {...i, photos: {...i.photos, small: avatar}}
-                    }
-                    return i
-                }));
-                this.props.setUsersCount(data.totalCount);
-            })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
     pageNumberChanger = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleLoading(true);
-        usersApi.pageNumberChanger(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleLoading(false);
-                this.props.setUsers(data.items.map(i => {
-                    if (i.photos.small === null) {
-                        return {...i, photos: {...i.photos, small: avatar}}
-                    }
-                    return i
-                }));
-            })
+        this.props.changePageNumberTC(pageNumber, this.props.pageSize)
     }
 
     followingChanger = (userID, trigger) => {
-        if(trigger === "follow"){
-            usersApi.followUser(userID)
-                .then(data => {
-                    if(data.resultCode === 0){
-                        this.props.follow(userID)
-                    }
-                    if(data.resultCode === 1){
-                        alert(data.messages[0])
-                    }
-                })
+        if (trigger === "follow") {
+            this.props.followingTC(userID)
         }
-        if(trigger === "unfollow"){
-            usersApi.unfollowUser(userID)
-                .then(data => {
-                    if(data.resultCode === 0){
-                        this.props.unfollow(userID)
-                    }
-                    if(data.resultCode === 1){
-                        alert(data.messages[0])
-                    }
-                })
+        if (trigger === "unfollow") {
+            this.props.unfollowingTC(userID)
         }
     }
 
@@ -93,16 +51,14 @@ let mapStateToProps = (state) => {
     }
 }
 
-const actionCreators = {
-    follow,
-    unfollow,
-    setUsers,
-    setUsersCount,
-    setCurrentPage,
-    toggleLoading,
+const actions = {
+    getUsersTC,
+    changePageNumberTC,
+    followingTC,
+    unfollowingTC,
 }
 
-export default connect(mapStateToProps, actionCreators)(UsersContainer)
+export default connect(mapStateToProps, actions)(UsersContainer)
 
 /*let mapDispatchToProps = (dispatch) => {
     return {

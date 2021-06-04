@@ -1,4 +1,4 @@
-import Users from "../components/Users/Users";
+import {headerApi} from "../api/social-network-api";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA"
 
@@ -19,7 +19,7 @@ export const authReducer = (state = initialState, action) => {
             return state
     }
 }
-
+ /* Action creators for auth-reducer */
 export const setAuthData = (id, login, email) => {
     return {
         type: SET_AUTH_DATA,
@@ -30,5 +30,14 @@ export const setAuthData = (id, login, email) => {
         }
     }
 }
+
+/* Thunk creators for auth-reducer */
+export const getAuthInfoTC = () => (dispatch) => {
+    headerApi.getAuthInfo()
+        .then(userData => {
+            dispatch(setAuthData(userData.id, userData.login, userData.email))
+        })
+}
+
 
 export default authReducer;

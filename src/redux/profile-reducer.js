@@ -1,3 +1,5 @@
+import {profileAPI} from "../api/social-network-api";
+
 const ADD_NEW_POST = "ADD_NEW_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
@@ -30,10 +32,18 @@ const profileReducer = (state = initialState, action) => {
             return state
     }
 }
+
+/* Action creators for profile-reducer */
 export const newPostCreator = () => ({type: ADD_NEW_POST})
-
 export const updateNewPostTextCreator = (postText) => ({type: UPDATE_NEW_POST_TEXT, postText})
-
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+
+/* Thunk creators for profile-reducer */
+export const getUserInfoTC = (userID) => (dispatch) => {
+    profileAPI.getUser(userID)
+        .then(res => {
+            dispatch(setUserProfile(res.data))
+        })
+}
 
 export default profileReducer;
