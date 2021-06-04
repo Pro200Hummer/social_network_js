@@ -63,12 +63,12 @@ const Users = (props) => {
 
                                 </div>
                                 <div>
-                                    {following}
-                                    {button}
-                                </div>
-                                <div>
                                     <div>{u.name}</div>
                                     <div>{u.status}</div>
+                                </div>
+                                <div>
+                                    {following}
+                                    {button}
                                 </div>
                             </div>
                         }

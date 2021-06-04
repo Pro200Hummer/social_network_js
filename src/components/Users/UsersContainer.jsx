@@ -7,13 +7,13 @@ import {
 import React from "react";
 import avatar from "../../resources/images/user-avatar.png";
 import Users from "./Users";
-import {usersAPI} from "../../api/users-api";
+import {usersApi} from "../../api/social-network-api";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.toggleLoading(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        usersApi.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
                 this.props.toggleLoading(false);
                 this.props.setUsers(data.items.map(i => {
@@ -29,7 +29,7 @@ class UsersContainer extends React.Component {
     pageNumberChanger = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleLoading(true);
-        usersAPI.pageNumberChanger(pageNumber, this.props.pageSize)
+        usersApi.pageNumberChanger(pageNumber, this.props.pageSize)
             .then(data => {
                 this.props.toggleLoading(false);
                 this.props.setUsers(data.items.map(i => {
@@ -43,7 +43,7 @@ class UsersContainer extends React.Component {
 
     followingChanger = (userID, trigger) => {
         if(trigger === "follow"){
-            usersAPI.followUser(userID)
+            usersApi.followUser(userID)
                 .then(data => {
                     if(data.resultCode === 0){
                         this.props.follow(userID)
@@ -54,7 +54,7 @@ class UsersContainer extends React.Component {
                 })
         }
         if(trigger === "unfollow"){
-            usersAPI.unfollowUser(userID)
+            usersApi.unfollowUser(userID)
                 .then(data => {
                     if(data.resultCode === 0){
                         this.props.unfollow(userID)

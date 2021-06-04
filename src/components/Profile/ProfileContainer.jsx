@@ -1,10 +1,9 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import axios from "axios";
 import {setUserProfile} from "../../redux/profile-reducer";
 import {withRouter} from 'react-router-dom';
-import {profileAPI} from "../../api/profile-api";
+import {profileAPI} from "../../api/social-network-api";
 
 
 
